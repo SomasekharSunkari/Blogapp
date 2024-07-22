@@ -1,0 +1,20 @@
+header{
+    max-width: 1200px;
+    background-color: transparent;
+    margin: 2rem auto 0;
+    display: flex;
+    
+    align-items: center;
+    justify-content: space-between;
+  }
+  header a{
+    text-decoration: none;
+    color: black;
+  }
+  header > a:first-child{
+    font-size: 1.5rem;
+  }
+  header .auth{
+    display: flex;
+    gap:30px;
+  }

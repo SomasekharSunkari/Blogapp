@@ -18,3 +18,6 @@ header{
     display: flex;
     gap:30px;
   }
+  .post{
+    margin: 2rem;
+  }

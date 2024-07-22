@@ -4,16 +4,25 @@ import mongoose from 'mongoose';
 import { UserModel } from "../api/models/User.js"; // Adjust the import path if necessary
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const secre = "3432423432234243dsfsdf"
 
 // CORS configuration
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from this origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed methods
+  credentials: true // Allow cookies to be sent
+}));
 app.use(express.json());
+app.use(cookieParser())
 
 // MongoDB URI
-const mongoURI = "mongodb+srv://sunkarisekhar36:oHlMDc2JBVamnKKb@cluster0.n22ozvo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+// const mongoURI = "mongodb+srv://sunkarisekhar36:oHlMDc2JBVamnKKb@cluster0.n22ozvo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+// const mongoURI = "mongodb+srv://sunkarise/khar36:sekharamma@176@cluster0.n22ozvo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const mongoURI = "mongodb+srv://sunkarisekhar36:m8bq6X77MaQwZ63W@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, {
@@ -67,7 +76,10 @@ app.post('/login', async (req, res) => {
         if (err) {
           return res.status(500).json({ error: 'Failed to generate token' });
         }
-        res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' }).json("ok");
+        res.cookie("token", token).json({
+          id:userDoc._id,
+          username
+        });
       }
     );
   } catch (e) {
@@ -76,6 +88,25 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+      return res.status(401).json({ error: 'No token provided' });
+  }
+
+  jwt.verify(token, secre,{}, (err, info) => {
+      if (err) {
+          return res.status(403).json({ error: 'Failed to authenticate token' });
+      }
+      res.json(info); // Send the decoded token information as JSON response
+  });
+});
+
+app.post("/logout",(req,res)=>{
+    res.cookie('token','').json("ok")
+})
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);

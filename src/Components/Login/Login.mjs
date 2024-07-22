@@ -1,11 +1,14 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState,useContext } from 'react'
 import "./Login.css"
 import { Form, Navigate } from 'react-router-dom'
+import { UserContexts } from '../Context/UserContext.mjs';
+
 
 const Login = () => {
     const [username,setusername] = useState('');
     const [password,setPassword]= useState("");
     const [redirect,setRedirect] = useState(false)
+    const {setUserInfo} = useContext(UserContexts)
     const handlesbmit =  async (ev) => {
         ev.preventDefault();   
         const response =  await fetch("http://localhost:5000/login",{
@@ -14,15 +17,17 @@ const Login = () => {
             "body":JSON.stringify({username,password}),
             "credentials":"include"
         })
-
         if(response.ok){
-            setRedirect(true)
+            response.json().then(userinfo=>{
+                setRedirect(true)
+                setUserInfo(userinfo)
+            })
+            // setRedirect(true)
+            // setUserInfo(response.username)
         }
         else{
             alert("Wrong Credentials !");
         }
-
-
  }
  if(redirect){
   return  <Navigate to={'/'}/>

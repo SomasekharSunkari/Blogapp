@@ -4,8 +4,12 @@ import mongoose from 'mongoose';
 import { UserModel } from "../api/models/User.js"; // Adjust the import path if necessary
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import multer from 'multer';
 import cookieParser from 'cookie-parser';
-
+import { PostModel } from './models/Post.js';
+import fs from 'fs';
+import { timeEnd } from 'console';
+const uploadMiddleware = multer({ dest: 'uploads/' })
 const app = express();
 const secre = "3432423432234243dsfsdf"
 
@@ -22,7 +26,8 @@ app.use(cookieParser())
 // MongoDB URI
 // const mongoURI = "mongodb+srv://sunkarisekhar36:oHlMDc2JBVamnKKb@cluster0.n22ozvo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // const mongoURI = "mongodb+srv://sunkarise/khar36:sekharamma@176@cluster0.n22ozvo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-const mongoURI = "mongodb+srv://sunkarisekhar36:m8bq6X77MaQwZ63W@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+// const mongoURI = "mongodb+srv://sunkarisekhar36:m8bq6X77MaQwZ63W@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const mongoURI = "mongodb+srv://sekhar:Ab8Hh8ECvA30zrhb@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, {
@@ -106,6 +111,25 @@ app.get("/profile", (req, res) => {
 
 app.post("/logout",(req,res)=>{
     res.cookie('token','').json("ok")
+})
+app.post("/posts",uploadMiddleware.single("file"),async(req,res)=>{
+const {originalname,path} = req.file;
+const parts = originalname.split(".");
+const ext  = parts[parts.length -1 ];
+const newPath = path+"."+ext
+fs.renameSync(path,newPath)
+  console.log(req.files)
+  const {title,summary,content} = req.body;
+ const postDoc =  await PostModel.create({
+    title,
+    summary,
+    content,
+    cover:newPath
+
+  })
+// res.json({files:req.file})
+res.json(postDoc);
+  
 })
 // Global error handler
 app.use((err, req, res, next) => {

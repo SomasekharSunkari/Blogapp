@@ -31,7 +31,7 @@ const Header = () => {
         setUserInfo(null);
      
   };
-  console.log(userInfo)
+  // console.log(userInfo)
 
   const username = userInfo?.username;
 
@@ -39,7 +39,7 @@ const Header = () => {
     <header className='header'>
       <a href='#'>My Blog</a>
       {username && (
-        <div>
+        <div className='small'>
           <Link to="/create" className='post'>Create New Post</Link>
           <a onClick={logout}>Logout</a>
         </div>

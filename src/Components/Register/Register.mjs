@@ -17,7 +17,7 @@ const Register = () => {
         else{
             alert("Registration Succesfull")
         }
-        console.log(result)
+        // console.log(result)
     }
     return (
 

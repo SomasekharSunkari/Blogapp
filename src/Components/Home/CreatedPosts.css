@@ -1,0 +1,31 @@
+.posts-create{
+    display: grid;
+    grid-template-columns: 1fr ;
+    
+    margin: 2rem auto 2rem ;
+   
+    gap:20px;
+}
+@media screen and (min-width:768px){
+    .posts-create{
+        display: grid;
+        grid-template-columns: 1fr 1.2fr  ;
+        width: 800px;
+        margin: 2rem auto 2rem ;
+       
+    }
+}
+.posts-create .image-container img{
+    width: 100%;
+    height: 300px;
+    max-width: 300px;
+    background-size:cover;
+}
+.post-content > a{
+    text-decoration: none;
+    color: black;
+    font-size: 2rem;
+}
+.post-content{
+    text-align: center;
+}

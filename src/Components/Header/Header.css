@@ -12,11 +12,29 @@ header{
     color: black;
   }
   header > a:first-child{
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
+  @media screen and (min-width:768px){
+    header > a:first-child{
+      font-size: 1.5rem;
+    }
+    .small{
+      font-size: 1.5rem;
+    }
+    .header .auth{
+      display: flex;
+      gap:30px;
+    }
+   
+  }
+  .small{
+    font-size: .8rem;
+   
+  }
+  
   header .auth{
     display: flex;
-    gap:30px;
+    gap:10px;
   }
   .post{
     margin: 2rem;

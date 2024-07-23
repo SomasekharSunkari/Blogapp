@@ -35,7 +35,8 @@ const CreatePosts = () => {
     const [redirect,setRedirect] = useState(false);
     const createNewPost = async (ev)=>{
         ev.preventDefault();
-        const data = new FormData();
+        try{
+          const data = new FormData();
         data.set('title',title);
         data.set('summary',summary);
         data.set('content',content);
@@ -48,17 +49,21 @@ const CreatePosts = () => {
         if(response.ok){
           setRedirect(true)
         }
-        // console.log(data)
+        }
+        
+        catch(e){
+          console.log("SOme error occured")
+        }
     }
    if(redirect) {
     return <Navigate to="/"/>
    }
   return (
-    <form onSubmit={createNewPost}>
+    <form onSubmit={createNewPost} className='form-top'>
      <input placeholder='title' type='text' value={title} onChange={(ev)=>setTitle(ev.target.value)} />
      <input placeholder='summary' type='text' value={summary} onChange={(ev)=>setSummary(ev.target.value)}/>
      <input type='file' placeholder='image' onChange={e=>setFiles(e.target.files)} />
-     <ReactQuill formats={formats} modules={modules} value={content} onChange={(newValue)=>setContent(newValue)}/>
+     <ReactQuill formats={formats} modules={modules} value={content} onChange={(newValue)=>setContent(newValue)} className='contentquill'/>
         <button> Create post</button>
     </form>
   )

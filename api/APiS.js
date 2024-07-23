@@ -5,16 +5,27 @@ import { UserModel } from "../api/models/User.js"; // Adjust the import path if 
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import multer from 'multer';
+import { fileURLToPath } from 'url';
+
+import path from 'path';
 import cookieParser from 'cookie-parser';
 import { PostModel } from './models/Post.js';
 import fs from 'fs';
-import { timeEnd } from 'console';
 const uploadMiddleware = multer({ dest: 'uploads/' })
 const app = express();
 const secre = "3432423432234243dsfsdf"
 
 // CORS configuration
+// Convert import.meta.url to a file path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// Middleware to serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.get("/",(req,res)=>{
+  console.log(__filename)
+  console.log(__dirname+"/uploads")
+})
 app.use(cors({
   origin: 'http://localhost:3000', // Allow requests from this origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed methods
@@ -22,12 +33,17 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser())
+// app.use("/uploads",express.static(__dirname + '/uploads'))
 
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 // MongoDB URI
 // const mongoURI = "mongodb+srv://sunkarisekhar36:oHlMDc2JBVamnKKb@cluster0.n22ozvo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // const mongoURI = "mongodb+srv://sunkarise/khar36:sekharamma@176@cluster0.n22ozvo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 // const mongoURI = "mongodb+srv://sunkarisekhar36:m8bq6X77MaQwZ63W@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-const mongoURI = "mongodb+srv://sekhar:Ab8Hh8ECvA30zrhb@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+// const mongoURI = "mongodb+srv://sekhar123:yeD5MHiUfRLV1L2t@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+// const mongoURI = "mongodb+srv://sekhar123:yeD5MHiUfRLV1L2t@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+// const mongoURI = "mongodb+srv://kirab:ouQE6yJB8jD1GCyq@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const mongoURI = "mongodb+srv://kirab:DYnrjelOw1S5FulX@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, {
@@ -131,13 +147,25 @@ fs.renameSync(path,newPath)
 res.json(postDoc);
   
 })
-// Global error handler
+app.get("/post/:id",async(req,res)=>{
+ const {id} = req.params;
+
+ const user = await PostModel.findById(id)
+ console.log(user)
+ return res.json(user)
+})
+app.get("/getposts", async (req,res)=>{
+  const posts = await PostModel.find({});
+console.log(posts);
+  return res.json(posts);
+})
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
 
-// Start the server
+
 app.listen(5000, () => {
   console.log('API Server is running on port 5000');
 });

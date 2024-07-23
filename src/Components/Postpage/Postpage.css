@@ -1,0 +1,15 @@
+.postpage-image img{
+    width: 60%;
+    display: block;
+    height: 400px;
+    margin: 2rem auto 1rem;
+    background-size:cover ;
+}
+.conten{
+    width: 100%;
+    max-width: 60%;
+    /* background-color: r/ed; */
+    margin: 2rem auto;
+    text-align: justify;
+    
+}

@@ -43,7 +43,8 @@ app.use(cookieParser())
 // const mongoURI = "mongodb+srv://sekhar123:yeD5MHiUfRLV1L2t@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 // const mongoURI = "mongodb+srv://sekhar123:yeD5MHiUfRLV1L2t@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 // const mongoURI = "mongodb+srv://kirab:ouQE6yJB8jD1GCyq@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-const mongoURI = "mongodb+srv://kirab:DYnrjelOw1S5FulX@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+// const mongoURI = "mongodb+srv://kirab:DYnrjelOw1S5FulX@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const mongoURI = "mongodb+srv://ragu:dND0eYR7AsokP59F@cluster0.uy19k9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, {

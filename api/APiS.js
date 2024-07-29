@@ -152,17 +152,17 @@ app.get("/post/:id",async(req,res)=>{
  const {id} = req.params;
 
  const user = await PostModel.findById(id)
- console.log(user)
+//  console.log(user)
  return res.json(user)
 })
 app.get("/getposts", async (req,res)=>{
   const posts = await PostModel.find({});
-console.log(posts);
+// console.log(posts);
   return res.json(posts);
 })
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  // console.error(err.stack);
   res.status(500).send('Something broke!');
 });
 

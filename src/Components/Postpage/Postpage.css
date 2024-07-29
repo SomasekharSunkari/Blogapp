@@ -1,26 +1,39 @@
+.postpage-image{
+    padding:2rem
+}
 .postpage-image img{
     width: 100%;
-    padding:20px;
-    display: block;
-    height: 600px;
-    background-size:cover ;
 }
-.conten{
-    width: 100%;
-    max-width: 60%;
-    margin: 2rem auto;
+@media screen and (min-width:798px) {
+    .postpage-image img{
+        width: 100%;
+        padding:20px;
+        display: block;
+        height: 600px;
+        background-size:cover ;
+    }
+    button{
+        margin: 0 auto 0;
+    }
+    .conten{
+        width: 100%;
+        padding:2rem;
+        margin: 0rem auto;    
+    }
+    .postpage-image h1{
+        text-align: center;
+        font-size: 3rem;
+    }
+    .postpage-image{
     
+        border-radius: 20px;
+        width: 60%;
+        margin: 2rem auto 1rem;
     
-}
-.postpage-image h1{
-    text-align: center;
-    font-size: 4rem;
-}
-.postpage-image{
-
-    border-radius: 20px;
-    width: 60%;
-    margin: 2rem auto 1rem;
-
-    border:2px solid black
+        border:2px solid black
+    }
+    .postpage-image  time{
+        text-align: center;
+        display: block;
+    }
 }

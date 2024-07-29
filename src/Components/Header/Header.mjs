@@ -28,7 +28,9 @@ const Header = () => {
       credentials: "include",
     })
       
+    // console.log(userInfo)
         setUserInfo(null);
+    // console.log(userInfo)
      
   };
   // console.log(userInfo)

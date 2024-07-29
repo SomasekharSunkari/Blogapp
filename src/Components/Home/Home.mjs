@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Post from './CreatedPosts.js';
 import "./Home.css";
+import { UserContexts } from '../Context/UserContext.mjs';
 
 const Home = () => {
   const [posts, setPosts] = useState([]); // Initialize as an empty array
   const [userInfo,setUserInfo] = useState();
+  const {userInfo:info} = useContext(UserContexts)
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,7 +26,7 @@ const Home = () => {
 
     fetchPosts();
   }, []); // Empty dependency array means this runs once on mount
-// if(!posts) return ""
+if(!info) return "Login to see the blogs"
   return (
     <div className='header-home'>
       {posts.map((item, index) => (

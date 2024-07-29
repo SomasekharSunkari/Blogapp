@@ -17,7 +17,7 @@
 }
 .posts-create .image-container img{
     width: 100%;
-    height: 300px;
+    height: 500px;
     max-width: 300px;
     background-size:cover;
 }
@@ -25,7 +25,4 @@
     text-decoration: none;
     color: black;
     font-size: 2rem;
-}
-.post-content{
-    text-align: center;
 }
